@@ -1,0 +1,16 @@
+#stars {
+    width: 300px;
+}
+#root{
+    position: absolute;
+    left: 50%;
+    margin-left: -300px;
+}
+.button{
+    width: 50px;
+    weight: auto;
+}
+.field{
+    width: 100px;
+    height: auto;
+}
