@@ -7,3 +7,8 @@ $('#root').animate({  borderSpacing: -360 }, {
     },
     duration:'slow'
 },'linear');
+
+//$('#buttonToReverce').click(function(){
+//    $('#id0').toggleClass('rotated');
+//});
+

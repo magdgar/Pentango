@@ -2,7 +2,7 @@ var CrossImage = "res/Cross.png";
 var ShapeImage = "res/Shape.png";
 var DefaultImage = "res/CircleCross.jpg";
 
-var RightArrow = "res/arrowL.png";
+var RightArrow = "res/arrowR.png";
 var LeftArrow = "res/arrowL.png";
 
 var foo = function(x){
@@ -24,24 +24,16 @@ var Game = React.createClass({
                     <table>
                         <tbody>
                         <tr>
-                            <td><Button id="kot" /></td> <td></td>
-                            <td></td> <td><Button /></td>
+                            <td><div id = "buttons"><ButtonR ide = "#id0"/><ButtonL ide = "#id0"/></div></td>
+                            <td><div id="id0">{this.state.boards[0]}</div></td>
+                            <td><div id="id1">{this.state.boards[1]}</div></td>
+                            <td><div id="buttons"><ButtonR ide = "#id1"/><ButtonL ide = "#id1"/></div></td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td>{this.state.boards[0]}</td>
-                            <td>{this.state.boards[1]}</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>{this.state.boards[2]}</td>
-                            <td>{this.state.boards[3]}</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><Button /></td> <td></td>
-                            <td></td> <td><Button /></td>
+                            <td><div id="buttons"><ButtonR ide = "#id2"/><ButtonL ide = "#id2"/></div></td>
+                            <td><div id="id2">{this.state.boards[2]}</div></td>
+                            <td><div id="id3">{this.state.boards[3]}</div></td>
+                            <td><div id="buttons"><ButtonR ide = "#id3"/><ButtonL ide = "#id3"/></div></td>
                         </tr>
                         </tbody>
                     </table>
@@ -73,25 +65,6 @@ var Game = React.createClass({
     }
 
 });
-
-var BoardWithButton = React.createClass({
-    render: function () {
-        return(
-            <table>
-                <tbody>
-                    <tr>
-                        <td><Button /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><Board /></td>
-                    </tr>
-                </tbody>
-            </table>
-        )
-    }
-})
 
 var Board = React.createClass({
     getInitialState: function(){
@@ -158,33 +131,39 @@ var Field = React.createClass({
     }
 });
 
-var Button = React.createClass({
+var ButtonR = React.createClass({
     render: function(){
         return(
-            <a href="#" onClick={this.rotate.bind(this, "left")}>
+            <a href="#" onClick={this.rotate.bind(null, this.props.ide)}>
                 <img className="button" src={RightArrow}/>
             </a>
         );
     },
-    rotate: function(direction) {
-        console.log("och maciek");
-        var angle = -90;
-        if (direction == "left") {
-            angle = -90;
-        }else {
-            angle = 90;
-        }
-        $("#kot").animate({borderSpacing: angle}, {
-            step: function (now, fx) {
-                console.log("funkcja kurwa");
-                $(this).css("-webkit-transform-origin", "center center");
-                $(this).css('-moz-transform', 'rotate(' + now + 'deg)');
-                $(this).css('transform', 'rotate(' + now + 'deg)');
-            },
-            duration: 'slow'
-        }, 'linear');
+    rotate: function(ide) {
+        var angle = $(ide).data('angle') || 0;
+        $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
+        $(ide).data('angle', angle + 90);
     }
 });
+
+var ButtonL = React.createClass({
+    render: function(){
+        return(
+            <a href="#" onClick={this.rotate.bind(null, this.props.ide)}>
+                <img className="button" src={LeftArrow}/>
+            </a>
+        );
+    },
+    rotate: function(ide) {
+        var angle = $(ide).data('angle') || 0;
+        $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
+        $(ide).data('angle', angle - 90);
+    }
+});
+
+
+
+
 
 ReactDOM.render(
     <Game />,
