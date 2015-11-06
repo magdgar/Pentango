@@ -149,10 +149,10 @@ var ButtonR = React.createClass({
         );
     },
     rotate: function(ide) {
-        var angle = $(ide).data('angle') || 90;
+        var angle = ($('#foo').data('angle')+90) || 90;
         console.log(angle);
         $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
-        $(ide).data('angle', angle + 90);
+        $(ide).data('angle', angle);
     }
 });
 
@@ -165,18 +165,18 @@ var ButtonL = React.createClass({
         );
     },
     rotate: function(ide) {
-        var angle = $(ide).data('angle') || -90;
+        var angle = ($('#foo').data('angle')-90) || -90;
         console.log(angle);
         $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
-        $(ide).data('angle', angle - 90);
+        $(ide).data('angle', angle);
     }
 });
 
 var rotate = function(ide, fi) {
-    var angle = $(ide).data('angle') || 90;
+    var angle = ($('#foo').data('angle')+fi) || fi;
     console.log("rotate AI");
     $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
-    $(ide).data('angle', angle + fi);
+    $(ide).data('angle', angle);
 }
 ReactDOM.render(
     <Game />,
