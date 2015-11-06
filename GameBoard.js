@@ -97,7 +97,7 @@ var Board = React.createClass({
                 imageFields: fields,
                 numberOfMarkedFileds: this.state.numberOfMarkedFileds + 1
             })
-            setTimeout(this.props.randomBoard, 1000);
+            setTimeout(this.props.randomBoard, 2000);
         }
     },
     oponentMarkField: function(){
@@ -113,6 +113,15 @@ var Board = React.createClass({
                         numberOfMarkedFileds : this.state.numberOfMarkedFileds +1
                     })
                     isTrue = false;
+                    var oponentBoardToRotate = ("#id" +Math.floor((Math.random() * 4)).toString());
+                    var isPlus = Math.floor(Math.random()*2);
+                    var fi = 0;
+                    if(isPlus == 1){
+                        fi =90;
+                    }else{
+                        fi =-90;
+                    }
+                    rotate(oponentBoardToRotate, fi);
                     return true;
                 }
             }
@@ -140,7 +149,8 @@ var ButtonR = React.createClass({
         );
     },
     rotate: function(ide) {
-        var angle = $(ide).data('angle') || 0;
+        var angle = $(ide).data('angle') || 90;
+        console.log(angle);
         $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
         $(ide).data('angle', angle + 90);
     }
@@ -155,16 +165,19 @@ var ButtonL = React.createClass({
         );
     },
     rotate: function(ide) {
-        var angle = $(ide).data('angle') || 0;
+        var angle = $(ide).data('angle') || -90;
+        console.log(angle);
         $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
         $(ide).data('angle', angle - 90);
     }
 });
 
-
-
-
-
+var rotate = function(ide, fi) {
+    var angle = $(ide).data('angle') || 90;
+    console.log("rotate AI");
+    $(ide).css({'transform': 'rotate(' + angle + 'deg)'});
+    $(ide).data('angle', angle + fi);
+}
 ReactDOM.render(
     <Game />,
     document.getElementById('root'));
